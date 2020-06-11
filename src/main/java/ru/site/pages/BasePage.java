@@ -34,7 +34,7 @@ public class BasePage {
         wait.until(driver -> {
 
 
-            return !str.equals(contributionsPage.fieldProcent.getText());
+            return !str.equals(contributionsPage.fieldCheck.getText());
         });
     }
 

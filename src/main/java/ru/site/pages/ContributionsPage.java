@@ -28,6 +28,11 @@ public class ContributionsPage extends BasePage {
     @FindBy(xpath = "//span[@class='js-calc-result']")
     public WebElement fieldTakeCash;
 
+    @FindBy(xpath = "//span[@class='js-calc-result js-calc-result-noanim']")
+    public WebElement fieldCheck;
+
+    @FindBy(xpath = "//span[@class='js-calc-currency']")
+    public WebElement value;
 
 
 

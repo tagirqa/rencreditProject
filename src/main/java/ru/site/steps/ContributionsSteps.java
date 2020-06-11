@@ -15,9 +15,13 @@ public class ContributionsSteps {
 
     @When("выбираем: {string}")
     public ContributionsSteps selectСurrency(String currency){
+        ContributionsPage contributionsPage = new ContributionsPage();
+        BasePage basePage = new BasePage();
         By locator = By.xpath(String.format(ContributionsPage.contributionsTemplate, currency));
         BaseSteps.wait.until(ExpectedConditions.elementToBeClickable(locator));
         BaseSteps.getDriver().findElement(locator).click();
+        String price = contributionsPage.value.getText();
+        basePage.waitRefreshing(price);
         return this;
     }
     @When("сумма вклада = {string}")
@@ -29,7 +33,11 @@ public class ContributionsSteps {
 
     @When("срок = {string} мес.")
     public ContributionsSteps selectMonth(String month){
+
         ContributionsPage contributionsPage = new ContributionsPage();
+        BasePage basePage = new BasePage();
+        String price = contributionsPage.fieldCheck.getText();
+        basePage.waitRefreshing(price);
         Select select = new Select(contributionsPage.selectMonth);
         select.selectByValue(month);
         return this;
@@ -38,6 +46,9 @@ public class ContributionsSteps {
     @When("ежемесячное пополнение {string}")
     public ContributionsSteps sensReplenish(String sum){
         ContributionsPage contributionsPage = new ContributionsPage();
+        BasePage basePage = new BasePage();
+        String price = contributionsPage.fieldCheck.getText();
+        basePage.waitRefreshing(price);
         contributionsPage.replenish.sendKeys(sum);
         return this;
     }
@@ -45,6 +56,9 @@ public class ContributionsSteps {
     @When("отмечаем – ежемесячная капитализация")
     public ContributionsSteps clickCapital(){
         ContributionsPage contributionsPage = new ContributionsPage();
+        BasePage basePage = new BasePage();
+        String price = contributionsPage.fieldCheck.getText();
+        basePage.waitRefreshing(price);
         contributionsPage.capital.click();
         return this;
     }
@@ -52,12 +66,13 @@ public class ContributionsSteps {
     @Then("сверяем рассчеты: начислено % - {string}, пополнение за месяцы - {string}, к снятию - {string}")
     public ContributionsSteps checkResults(String procentSum, String replenish, String cash)  {
 
-        BasePage basePage = new BasePage();
+
 
         ContributionsPage contributionsPage = new ContributionsPage();
-        String price = contributionsPage.fieldProcent.getText();
-        BaseSteps.wait.until(ExpectedConditions.visibilityOf(contributionsPage.fieldProcent));
+        BasePage basePage = new BasePage();
+        String price = contributionsPage.fieldCheck.getText();
         basePage.waitRefreshing(price);
+
         Assert.assertEquals("Сумма не сходится",
                 procentSum,
                 contributionsPage.fieldProcent.getText());
