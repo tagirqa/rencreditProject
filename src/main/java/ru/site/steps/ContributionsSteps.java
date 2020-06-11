@@ -15,13 +15,10 @@ public class ContributionsSteps {
 
     @When("выбираем: {string}")
     public ContributionsSteps selectСurrency(String currency){
-        ContributionsPage contributionsPage = new ContributionsPage();
-        BasePage basePage = new BasePage();
         By locator = By.xpath(String.format(ContributionsPage.contributionsTemplate, currency));
         BaseSteps.wait.until(ExpectedConditions.elementToBeClickable(locator));
         BaseSteps.getDriver().findElement(locator).click();
-        String price = contributionsPage.value.getText();
-        basePage.waitRefreshing(price);
+        BaseSteps.getDriver().findElement(locator).click();
         return this;
     }
     @When("сумма вклада = {string}")
